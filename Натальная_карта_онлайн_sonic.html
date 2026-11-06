@@ -712,7 +712,7 @@ $('dbcp').addEventListener('click',()=>{const t=$('dbt');t.select();try{navigato
 $('dbcl').addEventListener('click',()=>{$('dbio').hidden=true});
 
 /* ---- Древо и таблица ---- */
-let DV=LS.get('natal-dbv','list'),TS=null,TZ=1,TQ=null,TSG=[],TOM=false,tmsg='';
+let DV=LS.get('natal-dbv','list'),TS=null,TREE_ZOOM=1,TQ=null,TSG=[],TOM=false,tmsg='';
 const byId=id=>DB.find(r=>r.id==id),fmtD=s=>s?s.split('-').reverse().join('.'):'',yrs=(a,b)=>Math.floor((new Date(b)-new Date(a))/31556952e3),
 RL={fa:'Отец',mo:'Мать',sb:'Брат / сестра',ch:'Ребёнок',sp:'Супруг(а)'};
 function cleanLinks(id){DB.forEach(r=>{if(r.fa==id)delete r.fa;if(r.mo==id)delete r.mo;if(r.sp==id)delete r.sp;if(r.sb)r.sb=r.sb.filter(x=>x!=id)})}
@@ -728,7 +728,7 @@ function levels(P,R){const lv={};P.forEach(r=>lv[r.id]=0);
 for(let it=0,ch=1;ch&&it<P.length*3+5;it++){ch=0;const up=(id,v)=>{if(lv[id]<v){lv[id]=v;ch=1}};
 P.forEach(r=>{[r.fa,r.mo].forEach(p=>{if(p&&R.m[p])up(r.id,lv[p]+1)});R.cp[r.id].forEach(s=>up(r.id,lv[s]));R.sib[r.id].forEach(s=>up(r.id,lv[s]))})}
 return lv}
-const GW=164,GH=92,GS=22,GU=46,GR=156,GP=14;
+const GW=164,GH=92,GS=22,GU=46,TREE_ROW_GAP=156,GP=14;
 function layout(P,R,lv){const ids=P.map(r=>r.id),uf={},f=x=>uf[x]==x?x:(uf[x]=f(uf[x]));ids.forEach(i=>uf[i]=i);
 ids.forEach(i=>R.cp[i].forEach(j=>{uf[f(i)]=f(j)}));
 const cmpD=(a,b)=>R.m[a].dt<R.m[b].dt?-1:R.m[a].dt>R.m[b].dt?1:0,units={};ids.forEach(i=>{(units[f(i)]=units[f(i)]||[]).push(i)});
